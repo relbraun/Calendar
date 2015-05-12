@@ -12,5 +12,18 @@ jQuery(function($){
 				Array.prototype.push.apply(this, arguments);
 			}
 		};
+	};
+	
+	var date_prototype = {
+		addEvent : function(ev){
+			this.events.append(ev);	
+		}
+	}
+	var Day = function(time){
+		this.date = new Date(time);
+	}
+	
+	var MEvent = function(args){
+	
 	}
 });

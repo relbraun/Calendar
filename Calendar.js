@@ -1,9 +1,9 @@
 jQuery(function($){
 	
-	var CDate = {
-		fromDate : function(date){
-			var d = CDate;
-			if(!date instanceof Date){
+	var CDate = function(){};
+		CDate.fromDate = function(date){
+			var d = new CDate;
+			if(!(date instanceof Date)){
 				date = new Date(date);
 			}
 			d.day = date.getDate();
@@ -11,7 +11,7 @@ jQuery(function($){
 			d.year = date.getFullYear();
 			return d;
 		}
-	}
+	
 	
 	var Days = function(){
 		this.length = 0;
@@ -25,11 +25,15 @@ jQuery(function($){
 		};
 		this.get = function(time){
 			d = CDate.fromDate(time);
-			$.each(this, function(i,e){
-				if(e.date == d){
+			if(d instanceof CDate){
+				$.each(this, function(i,e){
+				var	ed = e.date;
+				if(ed.day == d.day && ed.month == d.month && ed.year == d.year){
 					return {day: e, i:i}
 				}
 			});
+			}
+			
 			return false;
 		}
 		

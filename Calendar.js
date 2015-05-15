@@ -25,16 +25,17 @@ jQuery(function($){
 		};
 		this.get = function(time){
 			d = CDate.fromDate(time);
+			var a = false;
 			if(d instanceof CDate){
 				$.each(this, function(i,e){
 				var	ed = e.date;
 				if(ed.day == d.day && ed.month == d.month && ed.year == d.year){
-					return {day: e, i:i}
+					a = {day: e, i:i}
 				}
 			});
 			}
 			
-			return false;
+			return a;
 		}
 		
 		this.remove = function(id){
@@ -78,9 +79,22 @@ jQuery(function($){
 	var MEvent = function(args){
 		
 		var _default = {
-			id: ''
+			id: '',
+			start : {hour: 9, minute:'00'},
+			end : {hour: 9, minute:'00'}
 		};
 		this.settings = $.extend({},_default,args);
+	}
+	
+	MEvent.setHour = function(start, end){
+		this.start = start;
+		this.end = end;
+	}
+	
+	MEvent.getId = function(){
+		if(!this.id){
+			//todo: get AJAX function.
+		}
 	}
 	
 	var Events = function(){
@@ -94,6 +108,18 @@ jQuery(function($){
 				Array.prototype.push.apply(this, arguments);
 			}
 		};
+		
+		this.create = function(args){
+			if(arguments.length === 1 && typeof args == 'object'){
+				var e = new MEvent({args.start, args.end});
+			}
+			else if(arguments.length === 2 && typeof arguments[0] == 'object' && typeof arguments[1] == 'object'){
+				var e = new MEvent({arguments[0], arguments[1]});
+			}
+			e.getId();
+			this.append(e);
+			return e;
+		}
 		
 		this.get = function(id){
 			$.each(this, function(i,e){

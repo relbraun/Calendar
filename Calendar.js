@@ -72,6 +72,7 @@ jQuery(function($){
 	var Day = function(time){
 		this.date = CDate.fromDate(new Date(time));
 		this.events = new Events();
+		this.calendar = window.calendar;
 	}
 	
 	Day.prototype = date_prototype;
@@ -111,10 +112,10 @@ jQuery(function($){
 		
 		this.create = function(args){
 			if(arguments.length === 1 && typeof args == 'object'){
-				var e = new MEvent({args.start, args.end});
+				var e = new MEvent({start:args.start, end:args.end});
 			}
 			else if(arguments.length === 2 && typeof arguments[0] == 'object' && typeof arguments[1] == 'object'){
-				var e = new MEvent({arguments[0], arguments[1]});
+				var e = new MEvent({start:arguments[0], end:arguments[1]});
 			}
 			e.getId();
 			this.append(e);

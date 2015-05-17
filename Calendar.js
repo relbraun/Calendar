@@ -1,4 +1,4 @@
-jQuery(function($){
+(function($){
 	
 	var CDate = function(){};
 		CDate.fromDate = function(date){
@@ -148,4 +148,4 @@ jQuery(function($){
 	
 	
 	window.calendar = Calendar;
-});
+})(jQuery);
